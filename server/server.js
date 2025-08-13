@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
+import testRoute from './routes/testRoute.js';
 import connectDB from './configs/db.js';
 import { clerkMiddleware } from '@clerk/express'
 import { serve } from "inngest/express";
@@ -14,6 +15,7 @@ await connectDB()
 // Middleware
 app.use(express.json())
 app.use(cors())
+app.use(testRoute);
 app.use(clerkMiddleware())
 
 // API route
