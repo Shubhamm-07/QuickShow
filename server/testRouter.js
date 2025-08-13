@@ -1,6 +1,6 @@
 // testRoute.js
 import express from 'express';
-import connectDB from '../config/db.js';
+import connectDB from './configs/db.js';
 import User from '../models/User.js';
 
 const router = express.Router();
