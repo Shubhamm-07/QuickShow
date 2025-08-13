@@ -33,5 +33,17 @@ router.get("/test", async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 });
+router.post('/test', async (req, res) => {
+  console.log("Incoming data:", req.body); // Logs what’s received
+  try {
+    const newUser = await User.create(req.body);
+    console.log("User saved:", newUser); // Logs saved record
+    res.status(201).json(newUser);
+  } catch (error) {
+    console.error("Error saving user:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 export default router;
