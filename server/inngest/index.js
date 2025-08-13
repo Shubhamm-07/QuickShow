@@ -2,22 +2,30 @@ import {Inngest} from 'inngest';
 import User from '../models/User.js';
 
 // Create a client to send and receive events
-export const inngest = new Inngest({ id: "movie-ticket-booking" });
+export const inngest = new Inngest({id: "movie-ticket-booking" });
 
 // Inngest function to save user data to a database
 const syncUserCreation = inngest.createFunction(
     {id: 'sync-user-from-clerk'},
     { event: 'clerk/user.created'},
     async ({event}) =>{
-        console.log(event)
-        console.log("✅ Clerk event received:", event.data);
-        const {id, first_name, last_name, email_addresses, image_url} = event.data
+         console.log("🔥 Function triggered!", event.data);
+    
+    try {
+        // your existing code
+        const {id, first_name, last_name, email_addresses, image_url} = event.data;
         const userData = {
-            _id: id,
+            clerkId: id,
             email: email_addresses[0].email_address,
             name: first_name + ' ' + last_name,
             image: image_url
         }
+        console.log("💾 About to save user...");
+        const savedUser = await User.create(userData);
+        console.log("✅ User saved successfully:", savedUser);
+    } catch (error) {
+        console.error("❌ Database error:", error);
+    }
         await User.create(userData)
     }
 )
