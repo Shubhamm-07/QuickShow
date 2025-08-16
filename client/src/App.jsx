@@ -2,11 +2,11 @@ import React from "react";
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import {Route, Routes, useLocation } from "react-router-dom";
-import Bookings from "./pages/myBookings";
-import SeatLayout from "./pages/seatLayout";
+import Bookings from "./pages/MyBookings";
+import SeatLayout from "./pages/SeatLayout";
 import MovieDetail from "./pages/MovieDetail";
-import Movies from "./pages/movies";
-import Favourite from "./pages/favourite";
+import Movies from "./pages/Movies";
+import Favourite from "./pages/Favourite";
 import Home from "./pages/Home";
 import {Toaster} from "react-hot-toast"
 import Layout from "./pages/admin/Layout";
@@ -14,9 +14,14 @@ import Dashboard from "./pages/admin/Dashboard";
 import AddShows from "./pages/admin/AddShows";
 import ListShows from "./pages/admin/ListShows";
 import ListBookings from "./pages/admin/ListBookings";
+import { useAppContext } from "./context/AppContext";
+import { SignIn } from "@clerk/clerk-react";
+import Loading from "./components/Loading";
 
 const App = () =>{
   const isAdminRoute = useLocation().pathname.startsWith('/admin')
+
+  const { user } = useAppContext()
   return (
     <>
     <Toaster/>
@@ -28,7 +33,12 @@ const App = () =>{
       <Route path='/movies/:id/:date' element={<SeatLayout/>}/>
       <Route path='/Favourite' element={<Favourite/>}/>
       <Route path='/my-bookings' element={<Bookings/>}/>
-      <Route path='/admin/*' element={<Layout/>}>
+      <Route path='/loading/:nextUrl' element={<Loading/>}/>
+      <Route path='/admin/*' element={user ? <Layout/> : (
+        <div className="min-h-screen flex justify-center items-center">
+          <SignIn fallbackRedirectUrl={'/admin'} />
+        </div>
+      )}>
         <Route index element={<Dashboard/>}/>
         <Route path="add-shows" element={<AddShows/>}/>
         <Route path="list-shows" element={<ListShows/>}/>
