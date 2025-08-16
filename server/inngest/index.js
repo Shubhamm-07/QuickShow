@@ -56,7 +56,7 @@ const syncUserDeletion = inngest.createFunction(
             throw error;
         }
     }
-);
+)
 
 // FIXED: Inngest function to update user in database  
 const syncUserUpdation = inngest.createFunction(
@@ -92,7 +92,7 @@ const syncUserUpdation = inngest.createFunction(
             throw error;
         }
     }
-);
+)
 
 // Inngest Funtion to cancel booking and release seats of show after 10 minutes of booking created if payment is not made
 const releaseSeatsAndDeleteBooking = inngest.createFunction(
@@ -123,5 +123,6 @@ const releaseSeatsAndDeleteBooking = inngest.createFunction(
 export const functions = [
     syncUserCreation,
     syncUserDeletion,
-    syncUserUpdation
+    syncUserUpdation,
+    releaseSeatsAndDeleteBooking
 ];
