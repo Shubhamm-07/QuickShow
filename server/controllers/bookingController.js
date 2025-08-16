@@ -49,11 +49,9 @@ export const createBooking = async (req, res) => {
         })
 
         showData.markModified('occupiedSeats');
-
         await showData.save()
 
         // Stripe Gateway Initialize
-
         const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY)
 
         // creating line items for stripe
@@ -76,14 +74,13 @@ export const createBooking = async (req, res) => {
             metadata: {
                 bookingId: booking._id.toString()
             },
-            expires_at: Math.floor(Date.now() / 1000) + 30 * 60, // expires in 30 minutes 
+            expires_at: Math.floor(Date.now() / 1000) + 30*60, // expires in 30 minutes 
         })
 
         booking.paymentLink = session.url
         await booking.save()
 
         res.json({success: true, url: session.url})
-        
     } catch (error) {
         console.error(error.message);
         res.json({success: false , message: error.message})
@@ -95,18 +92,46 @@ export const getOccupiedSeats = async (req, res) =>{
 
         const {showId} = req.params;
         const showData = await Show.findById(showId)
-
         const occupiedSeats = Object.keys(showData.occupiedSeats)
 
         res.json({success: true, occupiedSeats})
-        
     } catch (error) {
         console.error(error.message);
         res.json({success: false, message: error.message})
         
     }
-    
-
-    
-
 }
+
+// Add this to your bookingController.js
+export const checkPaymentStatus = async (req, res) => {
+    try {
+        const { bookingId } = req.params;
+        console.log('🔍 Checking booking:', bookingId);
+        
+        const booking = await Booking.findById(bookingId);
+        
+        if (!booking) {
+            return res.json({ success: false, message: "Booking not found" });
+        }
+
+        console.log('Current status:', { 
+            isPaid: booking.isPaid, 
+            paymentId: booking.paymentId,
+            amount: booking.amount 
+        });
+        
+        res.json({ 
+            success: true, 
+            booking: {
+                id: booking._id,
+                isPaid: booking.isPaid,
+                paymentId: booking.paymentId,
+                amount: booking.amount
+            }
+        });
+        
+    } catch (error) {
+        console.error('Error:', error);
+        res.json({ success: false, message: error.message });
+    }
+};

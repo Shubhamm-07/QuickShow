@@ -15,7 +15,7 @@ const syncUserCreation = inngest.createFunction(
             const {id, first_name, last_name, email_addresses, image_url} = event.data;
             
             const userData = {
-                clerkId: id, // FIXED: Use clerkId instead of _id
+                _id: id, // FIXED: Use _id instead of _id
                 email: email_addresses[0].email_address,
                 name: (first_name || '') + ' ' + (last_name || ''),
                 image: image_url
@@ -41,7 +41,7 @@ const syncUserDeletion = inngest.createFunction(
             console.log("🗑️ Clerk deletion event received:", event.data);
             
             const {id} = event.data;
-            const deletedUser = await User.findOneAndDelete({clerkId: id}); // FIXED: Use clerkId
+            const deletedUser = await User.findOneAndDelete({_id: id}); // FIXED: Use _id
             
             if (deletedUser) {
                 console.log("✅ User deleted successfully:", deletedUser._id);
@@ -74,7 +74,7 @@ const syncUserUpdation = inngest.createFunction(
             };
             
             const updatedUser = await User.findOneAndUpdate(
-                {clerkId: id}, // FIXED: Use clerkId instead of _id
+                {_id: id}, // FIXED: Use _id instead of _id
                 userData,
                 {new: true}
             );
