@@ -1,7 +1,21 @@
+import { clerkClient } from "@clerk/express";
 import Booking from "../models/Booking.js"
 import Show from "../models/Show.js";
 import User from "../models/User.js";
 
+
+const getUserDisplayName = (clerkUser) => {
+    if (clerkUser.username) {
+        return clerkUser.username;
+    }
+
+    const fullName = `${clerkUser.first_name || ''} ${clerkUser.last_name || ''}`.trim();
+    if (fullName) {
+        return fullName;
+    }
+    
+    return clerkUser.emailAddresses?.[0]?.emailAddress || 'Unknown User';
+};
 
 // API to check if user is a admin
 export const isAdmin = async (req, res) =>{

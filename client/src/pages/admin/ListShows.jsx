@@ -30,7 +30,6 @@ const ListShows = () => {
     if(user){
       getAllShows();
       }
-    
   },[user]);
 
   return !loading ? (
