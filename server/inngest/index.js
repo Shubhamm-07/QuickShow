@@ -276,8 +276,8 @@ const sendShowReminders = inngest.createFunction(
     {cron: '0 */8 * * *' }, // every 8 hrs.
     async({step})=>{
         const now = new Date();
-        const in8hours = new Date(now.getTime + 8*60*60*1000);
-        const windowStart = new Date(in8hours.getTime() - 10*60*1000)
+        const in8Hours = new Date(now.getTime + 8*60*60*1000);
+        const windowStart = new Date(in8Hours.getTime() - 10*60*1000)
 
         // Prepare reminder tasks
         const reminderTasks = await step.run
@@ -307,7 +307,7 @@ const sendShowReminders = inngest.createFunction(
                 return tasks;   
             })
 
-            if(reminderTasksTasks.length === 0){
+            if(reminderTasks.length === 0){
                 return {sent: 0, message: 'No reminders to send.'}
             }
 
