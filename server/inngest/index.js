@@ -2,7 +2,8 @@ import {Inngest} from 'inngest';
 import User from '../models/User.js';
 import Booking from '../models/Booking.js';
 import Show from '../models/Show.js';
-import sendEmail from '../controllers/nodeMailer.js';
+import sendEmail from '../configs/nodeMailer.js';
+
 
 // Create a client to send and receive events
 export const inngest = new Inngest({id: "movie-ticket-booking" });
@@ -38,7 +39,7 @@ const syncUserCreation = inngest.createFunction(
 // FIXED: Inngest function to delete user from database
 const syncUserDeletion = inngest.createFunction(
     {id: 'delete-user-with-clerk'},
-    { event: 'clerk/user.deleted'},
+    {event: 'clerk/user.deleted'},
     async ({event}) => {
         try {
             console.log("🗑️ Clerk deletion event received:", event.data);
@@ -126,7 +127,9 @@ const sendBookingConfirmationEmail = inngest.createFunction(
     {id: 'send-booking-confirmation-email'},
     {event: 'app/show.booked'},
     async({event, step}) =>{
-        const booking = await Booking.findById(bookingId).populate({
+        const {bookingId} = event.data;
+        const booking = await Booking.findById(bookingId).populate
+        ({
             path: 'show',
             populate: {path: 'movie', model: 'Movie'}
         }).populate('user');
