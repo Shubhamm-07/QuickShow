@@ -32,7 +32,13 @@ A modern, responsive movie ticket booking web application that allows users to b
 
 ## 📱 Screenshots
 
-*Add screenshots of your application here*
+<img width="1899" height="928" alt="Screenshot 2025-08-18 165739" src="https://github.com/user-attachments/assets/d0669d8a-aa03-4328-844d-f68b5577e9f8" />
+<img width="1761" height="914" alt="Screenshot 2025-08-18 165801" src="https://github.com/user-attachments/assets/5075e39d-26b2-4d8e-b6fc-c72cbdde4e8e" />
+<img width="1887" height="884" alt="Screenshot 2025-08-18 165921" src="https://github.com/user-attachments/assets/6a43f41b-1226-48f1-ab9b-219422999d1b" />
+<img width="1898" height="904" alt="Screenshot 2025-08-18 165833" src="https://github.com/user-attachments/assets/060b010e-7098-44ba-838f-70f2126e013a" />
+<img width="1849" height="917" alt="Screenshot 2025-08-18 170933" src="https://github.com/user-attachments/assets/395a3f49-4b41-4efc-872d-ea57803c3600" />
+<img width="1335" height="917" alt="Screenshot 2025-08-18 170801" src="https://github.com/user-attachments/assets/e4b22170-e777-4609-929b-532e2be32ed7" />
+
 
 ## 🚀 Getting Started
 
