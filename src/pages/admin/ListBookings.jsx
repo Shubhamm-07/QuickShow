@@ -3,7 +3,7 @@ import Loading from '../../components/Loading'
 import Title from '../../components/admin/Title'
 import { dateFormat } from '../../lib/dateFormat'
 import { dummyBookingData } from '../../assets/assets'
-import SeatLayout from '../seatLayout'
+import SeatLayout from '../SeatLayout'
 import { useAppContext } from '../../context/AppContext'
 
 const ListBookings = () => {

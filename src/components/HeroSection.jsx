@@ -19,7 +19,8 @@ const HeroSection = () => {
                 <ClockIcon className='w-4.5 h-4.5' /> 2h 8m
             </div>
         </div>
-        <p className='max-w-md text-gray-300'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem facere nemo culpa impedit molestiae, doloribus autem amet tenetur cupiditate obcaecati qui maiores voluptate molestias quos!</p>
+        <p className='max-w-md text-gray-300'>After stealing a mysterious orb in the far reaches of outer space, Peter Quill from Earth is now the main target of a manhunt led by the villain known as Ronan the Accuser.
+        To help fight Ronan and his team and save the galaxy from his power, Quill creates a team of space heroes known as the "Guardians of the Galaxy" to save the galaxy.</p>
         <button onClick={()=>navigate('/movies')} className='flex items-center gap-1 px-6 py-3 text-sm bg-primary hover:bg-primary-dull transition rounded-full font-medium cursor-pointer'>
           Explore Movies
           <ArrowRight className='w-5 h-5' />
