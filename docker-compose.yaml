@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # 1. The Database
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - mern_network
+
+  # 2. The Express Backend
+  backend:
+    build: ./server               # Tells Docker to look in the server folder for the Dockerfile
+    container_name: backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./server/.env             # Injects your Clerk, Stripe, and Mongo keys
+    volumes:
+      - ./server:/app             # LIVE RELOAD: Syncs your Windows code to the container
+      - /app/node_modules         # Protects the Linux node_modules from being overwritten
+    depends_on:
+      - mongodb                   # Ensures DB starts before the backend
+    networks:
+      - mern_network
+
+  # 3. The Vite React Frontend
+  frontend:
+    build: ./client               # Tells Docker to look in the client folder
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client:/app             # LIVE RELOAD: Syncs your React code to the container
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - mern_network
+
+# Define the shared network and persistent volume
+networks:
+  mern_network:
+    driver: bridge
+
+volumes:
+  mongo-data:
